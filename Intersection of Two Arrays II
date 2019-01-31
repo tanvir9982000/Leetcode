@@ -1,0 +1,66 @@
+class Solution {
+public:
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+        bool isnums2Smaller=nums1.size()>nums2.size()?true:false;
+        map<int,int> m;
+        map<int,int>::iterator it;
+        vector<int> result;
+        if(isnums2Smaller)
+        {
+            for(int i=0;i<nums2.size();i++)
+            {
+                it= m.find(nums2[i]);
+                if(it==m.end())
+                    m.insert(pair<int,int>(nums2[i], 1));
+                else
+                    m[nums2[i]]=it->second+1;
+            }
+            
+            for(int i=0;i<nums1.size();i++)
+            {
+                it = m.find(nums1[i]);
+                if(it!=m.end())
+                {
+                    result.push_back(nums1[i]);
+                    if(it->second==1)
+                    {
+                        m.erase(it);
+                    }
+                    else
+                    {
+                        m[nums1[i]]=it->second-1;
+                    }
+                }
+            }
+        }
+        else
+        {
+            for(int i=0;i<nums1.size();i++)
+            {
+                it= m.find(nums1[i]);
+                if(it==m.end())
+                    m.insert(pair<int,int>(nums1[i], 1));
+                else
+                    m[nums1[i]]=it->second+1;
+            }
+            for(int i=0;i<nums2.size();i++)
+            {
+                it = m.find(nums2[i]);
+                if(it!=m.end())
+                {
+                    result.push_back(nums2[i]);
+                    if(it->second==1)
+                    {
+                        m.erase(it);
+                    }
+                    else
+                    {
+                        m[nums2[i]]=it->second-1;
+                    }
+                }
+                
+            }
+        }
+        return result;
+    }
+};
