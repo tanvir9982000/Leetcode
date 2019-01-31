@@ -1,0 +1,26 @@
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if(x<0) return false;
+        int len = 0;
+        int copyX = x;
+        while(x)
+        {
+            len++;
+            x/=10;
+        }
+        if(len == 1) return true;
+        x = copyX;
+        int mask = pow(10,len-1);
+        while(mask)
+        {
+            int msd = x/mask;
+            int lsd = x%10;
+            if(msd!=lsd) return false;
+            x = x%mask;
+            x = x/10;
+            mask = mask/100;
+        }
+        return true;
+    }
+};
