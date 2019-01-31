@@ -1,0 +1,26 @@
+class Solution {
+public:
+    
+    int lengthOfLongestSubstring(string s) 
+    {
+        set<char> substring;
+        set<char>::iterator it;
+        int maxLen = 0, i = 0,j = 0, n = s.length();
+        for(;i<n && j<n;)
+        {
+            it=substring.find(s[j]);
+            if(it==substring.end())
+            {
+                substring.insert(s[j++]);
+                maxLen=max(maxLen, j-i);
+            }
+            else
+            {
+                substring.erase(s[i++]);
+            }
+            
+        }
+        return maxLen;
+        
+    }
+};
