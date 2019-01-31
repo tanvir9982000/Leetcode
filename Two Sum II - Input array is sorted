@@ -1,0 +1,47 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& numbers, int target) 
+    {
+        vector<int> result;
+        /*map<int, int> complementTarget;
+        for(int i=0;i<numbers.size();i++)
+        {
+            complementTarget.insert(pair<int,int>(target-numbers[i], i));
+        }
+        for(int i=0;i<numbers.size() ;i++)
+        {
+            map<int,int>::iterator it = complementTarget.find(numbers[i]);
+            if(it!=complementTarget.end() && i!=it->second)
+            {
+                int j = it->second;
+                if(i>j)
+                {
+                    result.push_back(j+1);
+                    result.push_back(i+1);
+                    return result;
+                }
+                else
+                {
+                    result.push_back(i+1);
+                    result.push_back(j+1);
+                    return result;
+                }
+            }
+        }*/
+        
+        int i=0, j=numbers.size()-1;
+        for(;;)
+        {
+            if(numbers[i]+numbers[j]==target)
+            {
+                result.push_back(i+1);
+                result.push_back(j+1);
+                return result;
+            }
+            else if(numbers[i]+numbers[j]>target) j--;
+            else if(numbers[i]+numbers[j]<target) i++;
+        }
+        
+        return result;
+    }
+};
