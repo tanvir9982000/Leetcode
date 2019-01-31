@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int dominantIndex(vector<int>& num) 
+    {
+        int max = num[0];
+        int maxIndex = 0;
+        int size = num.size();
+        for(int i = 1;i<size;i++){
+            if(max < num[i]){
+                max = num[i];
+                maxIndex = i;
+            }
+        }
+        //cout<<maxIndex<<endl;
+        bool isDominant = false;
+        for(int i= 0; i<size && !isDominant;i++){
+            if(i==maxIndex) continue;
+            if(max < 2*num[i]){
+                isDominant = true;
+                return -1;
+            }
+        }
+        if(isDominant == false) return maxIndex;
+        else return -1;
+            
+        
+    }
+};
