@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool containsDuplicate(vector<int>& nums) {
+        map<int,int> counter;
+        for(int i=0;i<nums.size();i++)
+        {
+            if(counter.find(nums[i])==counter.end())
+            {
+                counter.insert(pair<int,int>(nums[i],1));
+            }
+            else
+                return true;
+        }
+        return false;
+    }
+};
