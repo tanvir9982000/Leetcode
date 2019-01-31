@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int hammingDistance(int x, int y) {
+		int max;
+		if(x>y) max=x;
+		else max=y;
+		int c = 0;
+		while(max){
+			int rx = x%2;
+			int ry = y%2;
+			if(rx!=ry) c++;
+			x/=2;
+			y/=2;
+			max/=2;
+
+		}
+		return c;
+    } 
+};
