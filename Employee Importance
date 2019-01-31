@@ -1,0 +1,70 @@
+#include<queue>
+using namespace std;
+
+/*
+// Employee info
+class Employee {
+public:
+    // It's the unique ID of each node.
+    // unique id of this employee
+    int id;
+    // the importance value of this employee
+    int importance;
+    // the id of direct subordinates
+    vector<int> subordinates;
+};
+*/
+class Solution {
+public:
+    
+    vector<int> search(vector<Employee*> employees, int ID){
+        vector<int> subord =  std::vector<int>();;
+        for(int i=0;i<employees.size();i++){
+            if(employees[i]->id == ID){
+                subord = employees[i]->subordinates;
+                break;
+            }  
+                
+        }
+        return subord;
+    }
+    
+    int searchImp(vector<Employee*> employees, int ID){
+        int subImp = 0;
+        for(int i=0;i<employees.size();i++){
+            if(employees[i]->id == ID){
+                subImp = employees[i]->importance;
+                break;
+            }  
+                
+        }
+        return subImp;
+    }
+    
+    int getImportance(vector<Employee*> employees, int id) {
+        
+        vector<int> subord = std::vector<int>();
+        subord = search(employees, id);
+        int imp = searchImp(employees, id);
+        queue<int> q;
+        for(int i=0;i<subord.size();i++)
+            q.push(subord[i]);
+        subord.clear();
+        
+        while(1){
+            if(q.empty()) 
+                break;
+            int subID = q.front();
+            q.pop();
+            int subImp = searchImp(employees, subID);
+            imp += subImp;
+            subord = search(employees, subID);
+            for(int i=0;i<subord.size();i++)
+                q.push(subord[i]);
+            subord.clear();
+        }
+        
+        return imp;
+        
+    }
+};
