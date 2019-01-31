@@ -1,0 +1,38 @@
+class Solution {
+public:
+    bool isValid(string s) 
+    {
+        if(s.length()==0) return true;
+        stack<char> stck;
+        for(int i=0;i<s.length();i++)
+        {
+            if(s[i]=='(' || s[i]=='{'||s[i]=='[') 
+                stck.push(s[i]);
+            else
+            {
+                if(s[i]==')')
+                {
+                    if(!stck.empty() && stck.top()=='(') stck.pop();
+                    else return false;
+                }
+                else if(s[i]=='}')
+                {
+                    if(!stck.empty() && stck.top()=='{') stck.pop();
+                    else return false;
+                }
+                else if(s[i]==']')
+                {
+                    if(!stck.empty() && stck.top()=='[') stck.pop();
+                    else return false;
+                }
+                
+                else
+                {
+                    return false; // leading right Parenthesis
+                }
+            }
+        }
+        return stck.empty();
+        
+    }
+};
