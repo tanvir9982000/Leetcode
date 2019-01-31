@@ -1,4 +1,3 @@
 # Leetcode
-For saving my accepted codes submitted in leetcode. 
-The problem descriptions can be found here:
+Hi, I am uploading my Leetcode submitted codes here. The problem description can be found in 
 https://leetcode.com/problemset/all/
