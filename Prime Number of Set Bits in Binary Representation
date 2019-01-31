@@ -1,0 +1,38 @@
+#include<cmath>
+using namespace std;
+
+class Solution {
+public:
+    int countSetBits(int n)
+    {
+        int count = 0;
+        while (n)
+        {
+            count += n & 1;
+            n >>= 1;
+        }
+        return count;
+    }
+    
+    bool isPrime(int n){
+        if(n==1 ) return false;
+        for(int i=2;i<=sqrt(n);i++){
+            if(n%i==0) return false;
+        }
+        return true;
+    }
+    
+    int countPrimeSetBits(int L, int R) {
+        
+        int count=0;
+        for(int i=L;i<=R;i++){
+            int temp = countSetBits(i);
+            if(isPrime(temp)) {
+                //cout<<temp<<" "<<isPrime(temp)<<endl;
+                count++;
+            }
+            
+        }
+        return count;
+    }
+};
