@@ -1,0 +1,88 @@
+#include<string>
+using namespace std;
+class Solution {
+public:
+    
+    string truncateLeadingSpace(string s)
+    {
+        string result;
+        int i;
+        std::size_t found =s.find_first_of("+-1234567890");
+        for(i=0;i<s.length();i++)
+        {
+            if(s[i]==' ' && i<found)
+            {
+                ; //do nothing
+            }
+            else
+            {
+                result.append(1u,s[i]);
+            }
+        }
+        return result;
+        
+    }
+    bool isDigit(char c)
+    {
+        if(c>='0'&& c<='9') return true;
+        return false;
+    }
+    
+    int myAtoi(string str) {
+        str = truncateLeadingSpace(str); 
+        
+        //return 0 if leading char is not a digit or +/-
+        std::size_t found =str.find_first_of("+-1234567890");
+        if(found!= 0) return 0;
+        
+        //if leading char is +/- update sign
+        bool isPositive=true;
+        int i=0;
+        if(str[i]=='+')
+        {
+            i++;
+        }
+        else if(str[i]=='-')
+        {
+            i++;
+            isPositive=false;
+        }
+        //if the following char is not a digit, return 0; --1 = 0
+        found =str.find_first_of("1234567890",i);
+        if(found!= i) return 0;
+        
+        // if following char is digit, start adding numbers until end of string or any nondigit char found
+        unsigned long number=0;
+        bool overflow=false, underflow=false;
+        while(1)
+        {
+            if(!isDigit(str[i])) break;
+            int digit=str[i]-'0';
+            if( (isPositive && number > INT_MAX/10) ||(isPositive && number == INT_MAX/10 && digit >INT_MAX%10) )
+            {
+                overflow=true;
+                return INT_MAX;
+            }
+            if((!isPositive && number > (INT_MAX)/10) ||(!isPositive && number == INT_MAX/10 && digit>INT_MAX%10) )
+            {
+                underflow=true;
+                //cout<<"underflow\n";
+                return INT_MIN;
+            }
+            number=number*10+digit;
+            i++;
+        }
+        //add the sign bit
+        if(!isPositive) 
+        {
+            int negetiveNumber = number;
+            return -negetiveNumber;
+        }      
+        //if number>INT_MAX return INT_MAX
+        //if number<INT_MIN return INT_MIN
+        
+        //cout<<"INT_MAX = "<<INT_MAX<<" INT_MIN = "<<INT_MIN<<endl;
+        return number;
+        
+    }
+};
