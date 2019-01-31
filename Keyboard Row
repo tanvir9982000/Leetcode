@@ -1,0 +1,49 @@
+#include<string>
+#incldue<algorithm>
+
+class Solution {
+    
+public:
+    int findCat(char letter){
+        char topRow[10]={'q','w','e','r','t','y','u','i','o','p'};
+        char middleRow[9]={'a','s','d','f','g','h','j','k','l'};
+        char bottomRow[7]={'z','x','c','v','b','n','m'};
+        
+        for(int i=0;i<10;i++){
+            if(letter==topRow[i]) return 1;
+        }
+        for(int i=0;i<9;i++){
+            if(letter==middleRow[i]) return 2;
+        }
+        for(int i=0;i<10;i++){
+            if(letter==topRow[i]) return 3;
+        }
+        return 0;     
+    }
+    
+    
+    vector<string> findWords(vector<string>& words) {
+        vector<string> result;
+        for(int i=0;i<words.size();i++){
+            string currentWord = words[i];
+            std::transform(currentWord.begin(), currentWord.end(), currentWord.begin(), ::tolower);
+            if(currentWord.length()==1){
+                result.push_back(words[i]);
+                continue;
+            }
+            int currentCat=findCat(currentWord[0]);
+            bool found=true;
+            for(int j=1;j<currentWord.length()&&found;j++){
+                char letter = currentWord[j];
+                if(currentCat!= findCat(letter)){
+                    found = false;
+                }
+            }
+            if(found == true){
+                result.push_back(words[i]);
+            }
+        }
+        return result;
+        
+    }
+};
