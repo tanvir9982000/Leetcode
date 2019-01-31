@@ -1,0 +1,45 @@
+class Solution {
+public:
+    string minWindow(string s, string t) {
+      if(s.length() < t.length())
+      {
+          //cout << "No such window exists";
+          return "";
+      }
+  
+      int hash_t[128] = {0};
+      int hash_s[128] = {0};
+      for( int i= 0;i<t.length();i++){
+          hash_t[t[i]]++;
+      }
+      int start = 0, min_length = INT_MAX, start_index = -1;
+      int count = 0;  
+      string result = "";
+      for(int j = 0; j < s.length();j++){
+          hash_s[s[j]]++;
+
+          if(hash_t[s[j]]!=0 && hash_s[s[j]] <= hash_t[s[j]]){
+              count++;
+          }
+
+          if(count == t.length()){
+              while(hash_s[s[start]] > hash_t[s[start]] || hash_t[s[start]]==0){
+                  if(hash_s[s[start]] > hash_t[s[start]]){
+                      hash_s[s[start]]--;
+                  }
+                  start++;
+              }
+              int length = j-start+1;
+              if(min_length > length){
+                  min_length = length;
+                  start_index = start;
+              }
+          }                                                      
+      }
+
+      if(start_index == -1)                                                          
+          return "";
+      else
+          return s.substr(start_index, min_length);                                                        
+    }
+};
