@@ -1,0 +1,32 @@
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> result;
+        vector<int> line;
+        int i,j;
+        for(i=1;i<=numRows;i++)
+        {
+            for(j=1;j<=i;j++)
+            {
+                if(j==i) // row's last element,add 1 to line and add line in the result
+                {
+                    line.push_back(1);
+                    result.push_back(line);
+                    break;
+                }
+                else if(j==1) //row's first element, add 1 to line
+                {
+                    line.clear();
+                    line.push_back(1);
+                    continue;
+                }
+                else
+                {
+                    int temp = result[i-2][j-2]+result[i-2][j-1];
+                    line.push_back(temp);
+                }
+            }
+        }
+        return result;
+    }
+};
