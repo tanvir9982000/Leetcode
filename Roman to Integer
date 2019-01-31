@@ -1,0 +1,54 @@
+#include<map>
+class Solution {
+public:
+    int romanToInt(string s) 
+    {
+        int sum=0,i;
+        char current, prev, next;
+        map<char, int> m;
+        m.insert(std::pair<char,int>('M',1000));
+        m.insert(std::pair<char,int>('D',500));
+        m.insert(std::pair<char,int>('C',100));
+        m.insert(std::pair<char,int>('L',50));
+        m.insert(std::pair<char,int>('X',10));
+        m.insert(std::pair<char,int>('V',5));
+        m.insert(std::pair<char,int>('I',1));
+        
+        if(s.length()==1) return m.find(s[0])->second;
+        
+        for(i=0;i<s.length()-1;i++)
+        {
+            current = s[i];
+            next = s[i+1];
+            if (m.find(current)->second >= m.find(next)->second )
+            {
+                sum=sum+m.find(current)->second;
+            }
+            else
+            {
+                if((m.find(current)->second/m.find(next)->second) <= 10 )
+                {
+                    sum = sum + m.find(next)->second - m.find(current)->second;
+                    i++;
+                }
+            }
+            prev = current;
+            
+        }
+        
+        current = s[i];
+        if (m.find(prev)->second >= m.find(current)->second )
+        {
+            sum=sum+m.find(current)->second;
+        }
+        else
+        {
+            if((m.find(prev)->second/m.find(current)->second) <= 10 )
+            {
+                sum = sum + m.find(current)->second - m.find(prev)->second;
+            }
+        }
+        return sum;
+        
+    }
+};
